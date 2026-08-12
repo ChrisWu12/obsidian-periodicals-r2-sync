@@ -1,5 +1,5 @@
 {
-  "source_repo": "hehonghui/awesome-english-ebooks",
+  "source_repo": "ChrisWu12/awesome-english-ebooks",
   "source_branch": "master",
   "output_prefix": "外刊",
   "formats": ["pdf", "epub"],
@@ -21,4 +21,3 @@
     }
   ]
 }
-

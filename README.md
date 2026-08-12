@@ -9,7 +9,7 @@
 
 来源仓库：
 
-- https://github.com/hehonghui/awesome-english-ebooks
+- https://github.com/ChrisWu12/awesome-english-ebooks
 
 ## 安全边界
 
