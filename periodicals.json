@@ -1,0 +1,24 @@
+{
+  "source_repo": "hehonghui/awesome-english-ebooks",
+  "source_branch": "master",
+  "output_prefix": "外刊",
+  "formats": ["pdf", "epub"],
+  "include_readme": false,
+  "publications": [
+    {
+      "id": "economist",
+      "name": "The Economist",
+      "source_path": "01_economist",
+      "issue_dir_regex": "^te_(\\d{4})\\.(\\d{2})\\.(\\d{2})$",
+      "file_regex": "^TheEconomist\\.\\d{4}\\.\\d{2}\\.\\d{2}\\.(pdf|epub)$"
+    },
+    {
+      "id": "new_yorker",
+      "name": "The New Yorker",
+      "source_path": "02_new_yorker",
+      "issue_dir_regex": "^(\\d{4})\\.(\\d{2})\\.(\\d{2})$",
+      "file_regex": "^new_yorker\\.\\d{4}\\.\\d{2}\\.\\d{2}\\.(pdf|epub)$"
+    }
+  ]
+}
+
