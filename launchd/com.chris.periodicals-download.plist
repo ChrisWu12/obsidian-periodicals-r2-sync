@@ -13,6 +13,8 @@
 
   <key>StartCalendarInterval</key>
   <dict>
+    <key>Weekday</key>
+    <integer>0</integer>
     <key>Hour</key>
     <integer>10</integer>
     <key>Minute</key>
@@ -26,4 +28,3 @@
   <string>/Users/chris/.codex/visualizations/2026/07/26/019f9c96-5bf4-7113-a35b-886ab1e2de05/periodicals-r2-sync/logs/local-download.err.log</string>
 </dict>
 </plist>
-

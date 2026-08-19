@@ -159,7 +159,26 @@ python3 scripts/download_to_vault.py --config periodicals.json --recent 1 --dry-
   The Economist/
     2026-08-15/
       00 Issue Index.md
-      <Article Title> bilingual.md
+      03 The Taliban are vile. Democracies must still engage with them bilingual.md
+```
+
+`00 Issue Index.md` 会从本地 EPUB 自动生成编号目录，包含：
+
+- 文章编号
+- 文章标题
+- 目标双语笔记文件名
+- EPUB 内部来源文件
+
+处理时可以直接说：
+
+```text
+处理 The Economist 2026-08-15 编号 01, 03, 05
+```
+
+生成的双语笔记文件名也应保留编号，例如：
+
+```text
+03 The Taliban are vile. Democracies must still engage with them bilingual.md
 ```
 
 安全规则：
@@ -179,13 +198,17 @@ python3 scripts/download_to_vault.py --config periodicals.json --recent 1 --dry-
 launchd/com.chris.periodicals-download.plist
 ```
 
-安装后会每天本机时间 10:15 运行：
+安装后会每周日本机时间 10:15 运行：
 
 ```bash
 scripts/run_local_download.sh
 ```
 
-该任务每次检查最近 2 期，补齐本地原件库缺失文件，并遵守同样的安全规则：
+该任务每次检查最近 6 期，补齐本地原件库缺失文件，并刷新 Obsidian 中的编号目录。
+
+如果当次运行时没有网络，任务会失败并记录到错误日志；由于下一次会继续检查最近 6 期，通常会自动补齐漏掉的周刊。
+
+安全规则：
 
 - 只写入 `/Users/chris/Documents/Periodicals Library/`
 - 不删除
