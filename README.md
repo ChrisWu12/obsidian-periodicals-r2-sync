@@ -1,6 +1,6 @@
 # Periodicals R2 Sync
 
-把指定 GitHub 仓库里的外刊同步到 Cloudflare R2，再由 Obsidian Remotely Save 拉取到 Vault。
+把指定 GitHub 仓库里的外刊同步到 Cloudflare R2，或安全下载到本机 Obsidian Vault 的 `外刊/` 目录。
 
 本项目默认同步：
 
@@ -17,7 +17,8 @@
 - GitHub Actions 只上传新对象到 Cloudflare R2。
 - 脚本不会删除 R2 上的任何对象。
 - 输出目录固定在 R2 的 `外刊/` 前缀下。
-- Obsidian 端是否同步该目录，由你在 Remotely Save 中控制。
+- 本机下载脚本只写入 Obsidian Vault 的 `外刊/` 目录。
+- 如果你已经用 Möbius Sync 同步主 Vault，不建议再用 Remotely Save 管理同一个 Vault。
 
 ## R2 准备
 
@@ -109,6 +110,39 @@ python3 scripts/sync_periodicals.py --config periodicals.json --recent 1 --dry-r
 python3 scripts/sync_periodicals.py --config periodicals.json --recent 1
 ```
 
+## 下载到 Obsidian Vault
+
+推荐学习流：
+
+```text
+GitHub source repo
+→ Mac 定期下载到 Obsidian Vault/外刊
+→ Möbius Sync 同步到手机
+→ Codex 按期刊/文章生成中英对照学习笔记
+```
+
+不要让 Remotely Save 和 Möbius Sync 同时同步同一个主 Vault。
+
+只预览将写入哪些 Vault 文件，不下载：
+
+```bash
+python3 scripts/download_to_vault.py --config periodicals.json --recent 1 --dry-run
+```
+
+真实下载最近 1 期到默认 Vault：
+
+```bash
+python3 scripts/download_to_vault.py --config periodicals.json --recent 1
+```
+
+安全规则：
+
+- 只写入 `/Users/chris/Desktop/Obsidian Vault/外刊/`
+- 不删除任何文件
+- 不覆盖已存在文件
+- 不修改 `.obsidian`
+- 不修改 Travel、Dairy、Templates 或其他已有目录
+
 ## GitHub Actions
 
 workflow 文件在：
@@ -125,9 +159,11 @@ workflow 文件在：
 
 ## Obsidian 设置建议
 
-在手机和电脑 Obsidian 中安装 Remotely Save，并把远端配置成同一个 R2 bucket。
+如果你已经用 Möbius Sync 同步 Obsidian 主 Vault，不建议在同一个 Vault 上启用 Remotely Save。
 
-建议第一次同步前确认 Remotely Save 没有打开危险的清理/删除策略。目标是：
+更安全的方式是让本机下载脚本把外刊写入 `外刊/`，再由 Möbius Sync 负责同步到手机。
+
+如果仍要使用 Remotely Save，请先在测试 Vault 里验证，并确认没有打开危险的清理/删除策略。目标是：
 
 - 远端新增文件可以同步到本地
 - 本地既有文件不会被删除
