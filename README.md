@@ -1,6 +1,6 @@
 # Periodicals R2 Sync
 
-把指定 GitHub 仓库里的外刊同步到 Cloudflare R2，或安全下载到本机 Obsidian Vault 的 `外刊/` 目录。
+把指定 GitHub 仓库里的外刊同步到 Cloudflare R2，或安全下载到 Mac 本地原件资料库。
 
 本项目默认同步：
 
@@ -17,7 +17,8 @@
 - GitHub Actions 只上传新对象到 Cloudflare R2。
 - 脚本不会删除 R2 上的任何对象。
 - 输出目录固定在 R2 的 `外刊/` 前缀下。
-- 本机下载脚本只写入 Obsidian Vault 的 `外刊/` 目录。
+- 本机下载脚本只写入 Mac 本地原件资料库，不写入 Obsidian Vault。
+- Obsidian Vault 只保存处理后的中英对照 Markdown 学习笔记。
 - 如果你已经用 Möbius Sync 同步主 Vault，不建议再用 Remotely Save 管理同一个 Vault。
 
 ## R2 准备
@@ -110,34 +111,61 @@ python3 scripts/sync_periodicals.py --config periodicals.json --recent 1 --dry-r
 python3 scripts/sync_periodicals.py --config periodicals.json --recent 1
 ```
 
-## 下载到 Obsidian Vault
+## 下载到 Mac 本地原件库
 
 推荐学习流：
 
 ```text
 GitHub source repo
-→ Mac 定期下载到 Obsidian Vault/外刊
-→ Möbius Sync 同步到手机
+→ Mac 定期下载 PDF/EPUB 到本地原件库
+→ Codex 读取本地原件并生成中英对照 Markdown
+→ 处理后的 Markdown 放入 Obsidian Vault/外刊学习
+→ Möbius Sync 只同步轻量 Markdown 到手机
 → Codex 按期刊/文章生成中英对照学习笔记
 ```
 
 不要让 Remotely Save 和 Möbius Sync 同时同步同一个主 Vault。
 
-只预览将写入哪些 Vault 文件，不下载：
+默认原件库：
+
+```text
+/Users/chris/Documents/Periodicals Library/
+```
+
+只预览将写入哪些本地资料库文件，不下载：
+
+```bash
+python3 scripts/download_originals_to_library.py --config periodicals.json --recent 1 --dry-run
+```
+
+真实下载最近 1 期到本地资料库：
+
+```bash
+python3 scripts/download_originals_to_library.py --config periodicals.json --recent 1
+```
+
+旧版脚本仍保留，但不再推荐用于定时任务：
 
 ```bash
 python3 scripts/download_to_vault.py --config periodicals.json --recent 1 --dry-run
 ```
 
-真实下载最近 1 期到默认 Vault：
+## Obsidian 学习笔记目录
 
-```bash
-python3 scripts/download_to_vault.py --config periodicals.json --recent 1
+处理后的中英对照 Markdown 放在：
+
+```text
+/Users/chris/Desktop/Obsidian Vault/外刊学习/
+  The Economist/
+    2026-08-15/
+      00 Issue Index.md
+      <Article Title> bilingual.md
 ```
 
 安全规则：
 
-- 只写入 `/Users/chris/Desktop/Obsidian Vault/外刊/`
+- 自动下载原件只写入 `/Users/chris/Documents/Periodicals Library/`
+- Obsidian 只保存处理后的 Markdown
 - 不删除任何文件
 - 不覆盖已存在文件
 - 不修改 `.obsidian`
@@ -157,9 +185,9 @@ launchd/com.chris.periodicals-download.plist
 scripts/run_local_download.sh
 ```
 
-该任务每次检查最近 2 期，补齐缺失文件，并遵守同样的安全规则：
+该任务每次检查最近 2 期，补齐本地原件库缺失文件，并遵守同样的安全规则：
 
-- 只写入 `外刊/`
+- 只写入 `/Users/chris/Documents/Periodicals Library/`
 - 不删除
 - 不覆盖
 
