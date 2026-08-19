@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.chris.periodicals-download</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>/Users/chris/.codex/visualizations/2026/07/26/019f9c96-5bf4-7113-a35b-886ab1e2de05/periodicals-r2-sync/scripts/run_local_download.sh</string>
+  </array>
+
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key>
+    <integer>10</integer>
+    <key>Minute</key>
+    <integer>15</integer>
+  </dict>
+
+  <key>StandardOutPath</key>
+  <string>/Users/chris/.codex/visualizations/2026/07/26/019f9c96-5bf4-7113-a35b-886ab1e2de05/periodicals-r2-sync/logs/local-download.out.log</string>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/chris/.codex/visualizations/2026/07/26/019f9c96-5bf4-7113-a35b-886ab1e2de05/periodicals-r2-sync/logs/local-download.err.log</string>
+</dict>
+</plist>
+

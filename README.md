@@ -143,6 +143,33 @@ python3 scripts/download_to_vault.py --config periodicals.json --recent 1
 - 不修改 `.obsidian`
 - 不修改 Travel、Dairy、Templates 或其他已有目录
 
+## 本机定时任务
+
+已提供 macOS launchd 配置：
+
+```text
+launchd/com.chris.periodicals-download.plist
+```
+
+安装后会每天本机时间 10:15 运行：
+
+```bash
+scripts/run_local_download.sh
+```
+
+该任务每次检查最近 2 期，补齐缺失文件，并遵守同样的安全规则：
+
+- 只写入 `外刊/`
+- 不删除
+- 不覆盖
+
+日志位置：
+
+```text
+logs/local-download.out.log
+logs/local-download.err.log
+```
+
 ## GitHub Actions
 
 workflow 文件在：
